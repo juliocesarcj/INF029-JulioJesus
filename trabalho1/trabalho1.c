@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "JulioJesus-20232160030-T1.h" // Substitua pelo seu arquivo de header renomeado
+#include "trabalho1.h" // Substitua pelo seu arquivo de header renomeado
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
