@@ -270,20 +270,20 @@ int winner(char matriz[3][3])
     || (matriz[1][0] == 'X' && matriz[1][1] == 'X' && matriz[1][2] == 'X') 
     || (matriz[2][0] == 'X' && matriz[2][1] == 'X' && matriz[2][2] == 'X'))
     {
-        printf("Jogador 1 venceu");
+        printf("Jogador 1 venceu\n");
         return 1;
     }
     else if ((matriz[0][0] == 'X' && matriz[1][0] == 'X' && matriz[2][0] == 'X') 
     || (matriz[0][1] == 'X' && matriz[1][1] == 'X' && matriz[2][1] == 'X') 
     || (matriz[0][2] == 'X' && matriz[1][2] == 'X' && matriz[2][2] == 'X'))
     {
-        printf("Jogador 1 venceu");
+        printf("Jogador 1 venceu\n");
         return 1;
     }
     else if ((matriz[0][0] == 'X' && matriz[1][1] == 'X' && matriz[2][2] == 'X') 
     || (matriz[0][2] == 'X' && matriz[1][1] == 'X' && matriz[2][0] == 'X'))
     {
-        printf("Jogador 1 venceu");
+        printf("Jogador 1 venceu\n");
         return 1;
     }
     else
@@ -295,20 +295,20 @@ int winner(char matriz[3][3])
     || (matriz[1][0] == 'O' && matriz[1][1] == 'O' && matriz[1][2] == 'O') 
     || (matriz[2][0] == 'O' && matriz[2][1] == 'O' && matriz[2][2] == 'O'))
     {
-        printf("Jogador 2 venceu");
+        printf("Jogador 2 venceu\n");
         return 1;
     }
     else if ((matriz[0][0] == 'O' && matriz[1][0] == 'O' && matriz[2][0] == 'O') 
     || (matriz[0][1] == 'O' && matriz[1][1] == 'O' && matriz[2][1] == 'O') 
     || (matriz[0][2] == 'O' && matriz[1][2] == 'O' && matriz[2][2] == 'O'))
     {
-        printf("Jogador 2 venceu");
+        printf("Jogador 2 venceu\n");
         return 1;
     }
     else if ((matriz[0][0] == 'O' && matriz[1][1] == 'O' && matriz[2][2] == 'O') 
     || (matriz[0][2] == 'O' && matriz[1][1] == 'O' && matriz[2][0] == 'O'))
     {
-        printf("Jogador 2 venceu");
+        printf("Jogador 2 venceu\n");
         return 1;
     }
     else
@@ -343,7 +343,7 @@ int main()
         }
         contador++;
         if(contador == 9){
-            printf("Empate!");
+            printf("Empate!\n");
             break;
         }
         jogador = 2;
