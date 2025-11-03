@@ -7,6 +7,7 @@
 
 //  ----- Orientações gerais -----
 //  Descrição: esse arquivo deve conter as questões do trabalho do aluno.
+//  Cada aluno deve renomear esse arquivo para Aluno<MATRICULA>.c
 //  O aluno deve preencher seus dados abaixo, e implementar as questões do trabalho
 
 //  ----- Dados do Aluno -----
@@ -19,8 +20,8 @@
 // Última atualização: 07/05/2021
 
 // #################################################
-#ifndef TRABALHO1_H
-#define TRABALHO1_H
+#ifndef TRABALHO1_PRIMEIROULTIMONOMEMATRICULA_H
+#define TRABALHO1_PRIMEIROULTIMONOMEMATRICULA_H
 
 typedef struct DQ
 {
@@ -44,11 +45,10 @@ int somar(int x, int y); //função utilizada para testes
 int fatorial(int x); //função utilizada para testes
 int q1(char data[]);
 DiasMesesAnos q2(char datainicial[], char datafinal[]);
-int q3(char *texto, char c, int isCaseSensitive);
+int q3(char texto[], char c, int isCaseSensitive);
 int q4(char *strTexto, char *strBusca, int posicoes[30]);
 int q5(int num);
 int q6(int numerobase, int numerobusca);
 int q7(char matriz[8][10], char palavra[5]);
 DataQuebrada quebraData(char data[]);
-
-#endif  // MAIN_H
+#endif  // TRABALHO1_PRIMEIROULTIMONOMEMATRICULA_H

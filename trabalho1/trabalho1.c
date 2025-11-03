@@ -439,9 +439,7 @@ int q7(char matriz[8][10], char palavra[5])
     int achou = 0;
     int size = strlen(palavra);
     int direcoes[8][2] = {
-        {-1,-1}, {-1,1}, {1,-1}, {1,1},
-        {-1,0}, {1,0}, {0,1}, {0,-1}
-    };
+        {-1,-1}, {-1,1}, {1,-1}, {1,1}, {-1,0}, {1,0}, {0,1}, {0,-1}};
 
     for (int i = 0; i < 8; i++)
     {
@@ -461,7 +459,7 @@ int q7(char matriz[8][10], char palavra[5])
                         if (x < 0 || x >= 8 || y < 0 || y >= 10) break;
                         if (matriz[x][y] != palavra[k]) break;
                     }
-                    if (k == size) achou++; // palavra completa encontrada
+                    if (k == size) achou++; 
                 }
             }
         }
