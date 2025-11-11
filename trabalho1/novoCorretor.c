@@ -17,7 +17,7 @@ int main(){
     testQ1(); //10 testes
     printf("q2\n");
     testQ2(); // 35 testes
-    //printf("q3\n");
+    printf("q3\n");
     testQ3(); // 13 testes
     printf("q4\n");
     testQ4(); // 22 testes
