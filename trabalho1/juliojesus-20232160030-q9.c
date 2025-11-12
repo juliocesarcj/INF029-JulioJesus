@@ -250,7 +250,7 @@ void player1posiciona(matriz *a, navio *b, int size, int x, int y, int orientaca
         }
         while (!posC)
         {
-            if (a->tabuleiro[y + k][x] != ' ' && a->tabuleiro[y + k][x] != 'N')
+            if (a->tabuleiro[y][x+k] != ' ' && a->tabuleiro[y][x+k] != 'N')
             {
                 printf("Posição Posicao Ocupada por Navio\n");
                 printf("Player 1 jogue novamente\n");
@@ -263,7 +263,7 @@ void player1posiciona(matriz *a, navio *b, int size, int x, int y, int orientaca
             }
             if (x >= 0 && x < tam && y >= 0 && y < tam)
             {
-                a->tabuleiro[y + k][x] = b->Barco[k];
+                a->tabuleiro[y][x+k] = b->Barco[k];
                 k++;
             }
         }
@@ -272,7 +272,7 @@ void player1posiciona(matriz *a, navio *b, int size, int x, int y, int orientaca
             {
                 {
                     {
-                        a->tabuleiro[y + k][x] = b->Barco[k];
+                        a->tabuleiro[y][x+k] = b->Barco[k];
                     }
                 }
             }
@@ -395,7 +395,7 @@ void player2posiciona(matriz *a, navio *b, int size, int x, int y, int orientaca
         }
         while (!posC)
         {
-            if (a->tabuleiro2[y + k][x] != ' ' && a->tabuleiro2[y + k][x] != 'N')
+            if (a->tabuleiro2[y + k][x] != ' ' && a->tabuleiro2[y][x+k] != 'N')
             {
                 printf("Posição Posicao Ocupada por Navio\n");
                 printf("Player 1 jogue novamente\n");
@@ -408,7 +408,7 @@ void player2posiciona(matriz *a, navio *b, int size, int x, int y, int orientaca
             }
             if (x >= 0 && x < tam && y >= 0 && y < tam)
             {
-                a->tabuleiro2[y + k][x] = b->barco2[k];
+                a->tabuleiro2[y][x+k] = b->barco2[k];
                 k++;
             }
         }
@@ -417,7 +417,7 @@ void player2posiciona(matriz *a, navio *b, int size, int x, int y, int orientaca
             {
                 {
                     {
-                        a->tabuleiro2[y + k][x] = b->barco2[k];
+                        a->tabuleiro2[y][x+k] = b->barco2[k];
                     }
                 }
             }
