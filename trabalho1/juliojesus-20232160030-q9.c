@@ -359,7 +359,7 @@ void player2posiciona(matriz *a, navio *b, int size, int x, int y, int orientaca
     {
         while (!posC)
         {
-            if (a->tabuleiro[y + k1][x] != ' ' && a->tabuleiro[y + k1][x] != 'N')
+            if (a->tabuleiro2[y + k1][x] != ' ' && a->tabuleiro2[y + k1][x] != 'N')
             {
                 printf("Posição Posicao Ocupada por Navio\n");
                 printf("Player 1 jogue novamente\n");
