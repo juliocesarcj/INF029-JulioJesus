@@ -138,334 +138,154 @@ void oqueojogador2ver(matriz *a)
 }
 void player1posiciona(matriz *a, navio *b, int size, int x, int y, int orientacao)
 {
-    if (size >= 3 && size <= 4)
-    {
-        printf("Jogador 1, selecione a orientação (1-vertical, 0-horizontal): \n");
-        scanf("%d", &orientacao);
-    }
-    while (orientacao != 0 && orientacao != 1)
-    {
-        printf("Orientação inválida\n");
-        printf("Player 1 jogue novamente\n");
-        printf("nova orientacao \n");
-        scanf("%d", &orientacao);
-    }
+    printf("Jogador 1, selecione a orientação (1-vertical, 0-horizontal): \n");
+    scanf("%d", &orientacao);
     printf("Jogador 1, insira a posição (x): \n");
     scanf("%d", &x);
-    while (x <= 0 || x > 9)
-    {
-        if (x == 0)
-            break;
-        printf("X invalido, jogue novamente, player 1.\n");
-        printf("digite novo X: ");
-        scanf("%d", &x);
-    }
-    if (x == 0)
-        x += 1;
-
-    x -= 1;
-    if (orientacao == 0 && (x + size <= 10))
-    {
-        while ((x <= 0 || x > 9) && (x + size <= 10))
-        {
-            if (x == 0)
-                break;
-            printf("X invalido, jogue novamente, player 1.\n");
-            printf("digite novo X: ");
-            scanf("%d", &x);
-        }
-    }
     printf("Jogador 1, insira a posição (y): \n");
     scanf("%d", &y);
-    while ((y <= 0 || y > 9))
-    {
-        if (y == 0)
-            break;
-        printf("Y invalido, jogue novamente, player 1.\n");
-        printf("digite novo Y: ");
-        scanf("%d", &y);
-    }
-    if (y == 0)
-        y += 1;
+    x -= 1;
     y -= 1;
-    if (orientacao == 1)
+    if ((x < 0 || x > 9) || (y < 0 || y > 9) || (a->tabuleiro[y][x] != ' ') || (orientacao != 0 && orientacao != 1))
     {
-        while ((y <= 0 || y > 9) && (y + size <= 10))
+        while ((x < 0 || x > 9) || (y < 0 || y > 9) || (a->tabuleiro[y][x] != ' ') || (orientacao != 0 && orientacao != 1))
         {
-            if (y == 0)
-                break;
-            printf("Y invalido, jogue novamente, player 1.\n");
+            if (a->tabuleiro[y][x] != ' ')
+                printf("Posição Ocupada por Navio\n");
+            if (x < 0 || x > 9)
+                printf("X invalido, jogue novamente, player 1.\n");
+            if (y < 0 || y > 9)
+                printf("Y invalido, jogue novamente, player 1.\n");
+
+            printf("barco posicionado, jogue novamente, player 1.\n");
+            printf("digite nova orientacao: ");
+            scanf("%d", &orientacao);
+            printf("digite novo X: ");
+            scanf("%d", &x);
             printf("digite novo Y: ");
             scanf("%d", &y);
         }
-    }
-    for (int i = 0; i < size; i++)
-    {
-        b->Barco[i] = 'N';
+        x -= 1;
+        y -= 1;
     }
 
-    int posC = 0;
-    if (x >= 0 && x < tam && y >= 0 && y < tam)
+    if (x < 0)
+        x = 0;
+    if (y < 0)
+        y = 0;
+    if ((x >= 0 && x < tam) && (y >= 0 && y < tam) && (a->tabuleiro[y][x] == ' ') && (orientacao == 0) && (x + size) <= 10)
     {
-        posC = 1;
-    }
-    int k1 = 0;
-    if (orientacao == 1)
-    {
-        while (!posC)
+        for (int i = 0; i < size; i++)
         {
-            if (a->tabuleiro[y + k1][x] != ' ' && a->tabuleiro[y + k1][x] != 'N')
-            {
-                printf("Posição Posicao Ocupada por Navio\n");
-                printf("Player 1 jogue novamente\n");
-                printf("nova orientacao \n");
-                scanf("%d", &orientacao);
-                printf("digite novo X");
-                scanf("%d", &x);
-                printf("digite novo Y");
-                scanf("%d", &y);
-                if (x >= 0 && x < tam && y >= 0 && y < tam)
-                {
-                    posC = 1;
-                }
-            }
-            if (posC)
-                a->tabuleiro[y + k1][x] = b->Barco[k1];
-            k1++;
+            b->Barco[i] = 'N';
         }
         for (int k = 0; k < size; k++)
         {
-            if (posC)
-                a->tabuleiro[y + k][x] = b->Barco[k];
+            a->tabuleiro[y][x + k] = b->Barco[k];
         }
     }
 
-    else if (orientacao == 0)
+    if ((x >= 0 && x < tam) && (y >= 0 && y < tam) && (a->tabuleiro[y][x] == ' ') && (orientacao == 1) && (y + size) <= 10)
     {
-        posC = 0;
-        int k = 0;
-        if (x >= 0 && x < tam && y >= 0 && y < tam)
+        for (int i = 0; i < size; i++)
         {
-            posC = 1;
+            b->Barco[i] = 'N';
         }
-        while (!posC)
+        for (int k = 0; k < size; k++)
         {
-            if (a->tabuleiro[y][x+k] != ' ' && a->tabuleiro[y][x+k] != 'N')
-            {
-                printf("Posição Posicao Ocupada por Navio\n");
-                printf("Player 1 jogue novamente\n");
-                printf("nova orientacao \n");
-                scanf("%d", &orientacao);
-                printf("digite novo X");
-                scanf("%d", &x);
-                printf("digite novo Y");
-                scanf("%d", &y);
-            }
-            if (x >= 0 && x < tam && y >= 0 && y < tam)
-            {
-                a->tabuleiro[y][x+k] = b->Barco[k];
-                k++;
-            }
+            a->tabuleiro[y + k][x] = b->Barco[k];
         }
-        if (x >= 0 && x < tam && y >= 0 && y < tam)
-            for (k = 0; k < size; k++)
-            {
-                {
-                    {
-                        a->tabuleiro[y][x+k] = b->Barco[k];
-                    }
-                }
-            }
     }
 }
-
-
 
 void player2posiciona(matriz *a, navio *b, int size, int x, int y, int orientacao)
 {
-    if (size >= 3 && size <= 4)
-    {
-        printf("Jogador 2, selecione a orientação (1-vertical, 0-horizontal): \n");
-        scanf("%d", &orientacao);
-    }
-    while (orientacao != 0 && orientacao != 1)
-    {
-        printf("Orientação inválida\n");
-        printf("Player 2 jogue novamente\n");
-        printf("nova orientacao \n");
-        scanf("%d", &orientacao);
-    }
+    printf("Jogador 2, selecione a orientação (1-vertical, 0-horizontal): \n");
+    scanf("%d", &orientacao);
     printf("Jogador 2, insira a posição (x): \n");
     scanf("%d", &x);
-    while (x <= 0 || x > 9)
-    {
-        if (x == 0)
-            break;
-        printf("X invalido, jogue novamente, player 1.\n");
-        printf("digite novo X: ");
-        scanf("%d", &x);
-    }
-    if (x == 0)
-        x += 1;
-
+    printf("Jogador 2, insira a posição (y): \n");
+    scanf("%d", &y);
     x -= 1;
-    if (orientacao == 0 && (x + size <= 10))
+    y -= 1;
+    if ((x < 0 || x > 9) || (y < 0 || y > 9) || (a->tabuleiro2[y][x] != ' ') || (orientacao != 0 && orientacao != 1))
     {
-        while ((x <= 0 || x > 9) && (x + size <= 10))
+        while ((x < 0 || x > 9) || (y < 0 || y > 9) || (a->tabuleiro2[y][x] != ' ') || (orientacao != 0 && orientacao != 1))
         {
-            if (x == 0)
-                break;
-            printf("X invalido, jogue novamente, player 1.\n");
+            if (a->tabuleiro2[y][x] != ' ')
+                printf("Posição Ocupada por Navio\n");
+            if (x < 0 || x > 9)
+                printf("X invalido, jogue novamente, player 2.\n");
+            if (y < 0 || y > 9)
+                printf("Y invalido, jogue novamente, player 2.\n");
+
+            printf("barco posicionado, jogue novamente, player 2.\n");
+            printf("digite nova orientacao: ");
+            scanf("%d", &orientacao);
             printf("digite novo X: ");
             scanf("%d", &x);
-        }
-    }
-    printf("Jogador 1, insira a posição (y): \n");
-    scanf("%d", &y);
-    while ((y <= 0 || y > 9))
-    {
-        if (y == 0)
-            break;
-        printf("Y invalido, jogue novamente, player 1.\n");
-        printf("digite novo Y: ");
-        scanf("%d", &y);
-    }
-    if (y == 0)
-        y += 1;
-    y -= 1;
-    if (orientacao == 1)
-    {
-        while ((y <= 0 || y > 9) && (y + size <= 10))
-        {
-            if (y == 0)
-                break;
-            printf("Y invalido, jogue novamente, player 1.\n");
             printf("digite novo Y: ");
             scanf("%d", &y);
         }
+        x -= 1;
+        y -= 1;
     }
-    for (int i = 0; i < size; i++)
+    if (x < 0)
+        x = 0;
+    if (y < 0)
+        y = 0;
+    if ((x >= 0 && x < tam) && (y >= 0 && y < tam) && (a->tabuleiro2[y][x] == ' ') && (orientacao == 0) && (x + size) <= 10)
     {
-        b->barco2[i] = 'N';
-    }
-
-    int posC = 0;
-    if (x >= 0 && x < tam && y >= 0 && y < tam)
-    {
-        posC = 1;
-    }
-    int k1 = 0;
-    if (orientacao == 1)
-    {
-        while (!posC)
+        for (int i = 0; i < size; i++)
         {
-            if (a->tabuleiro2[y + k1][x] != ' ' && a->tabuleiro2[y + k1][x] != 'N')
-            {
-                printf("Posição Posicao Ocupada por Navio\n");
-                printf("Player 1 jogue novamente\n");
-                printf("nova orientacao \n");
-                scanf("%d", &orientacao);
-                printf("digite novo X");
-                scanf("%d", &x);
-                printf("digite novo Y");
-                scanf("%d", &y);
-                if (x >= 0 && x < tam && y >= 0 && y < tam)
-                {
-                    posC = 1;
-                }
-            }
-            if (posC)
-                a->tabuleiro2[y + k1][x] = b->barco2[k1];
-            k1++;
+            b->barco2[i] = 'N';
         }
         for (int k = 0; k < size; k++)
         {
-            if (posC)
-                a->tabuleiro2[y + k][x] = b->barco2[k];
+            a->tabuleiro2[y][x + k] = b->barco2[k];
         }
     }
 
-    else if (orientacao == 0)
+    if ((x >= 0 && x < tam) && (y >= 0 && y < tam) && (a->tabuleiro2[y][x] == ' ') && (orientacao == 1) && (y + size) <= 10)
     {
-        posC = 0;
-        int k = 0;
-        if (x >= 0 && x < tam && y >= 0 && y < tam)
+        for (int i = 0; i < size; i++)
         {
-            posC = 1;
+            b->barco2[i] = 'N';
         }
-        while (!posC)
+        for (int k = 0; k < size; k++)
         {
-            if (a->tabuleiro2[y + k][x] != ' ' && a->tabuleiro2[y][x+k] != 'N')
-            {
-                printf("Posição Posicao Ocupada por Navio\n");
-                printf("Player 1 jogue novamente\n");
-                printf("nova orientacao \n");
-                scanf("%d", &orientacao);
-                printf("digite novo X");
-                scanf("%d", &x);
-                printf("digite novo Y");
-                scanf("%d", &y);
-            }
-            if (x >= 0 && x < tam && y >= 0 && y < tam)
-            {
-                a->tabuleiro2[y][x+k] = b->barco2[k];
-                k++;
-            }
+            a->tabuleiro2[y + k][x] = b->barco2[k];
         }
-        if (x >= 0 && x < tam && y >= 0 && y < tam)
-            for (k = 0; k < size; k++)
-            {
-                {
-                    {
-                        a->tabuleiro2[y][x+k] = b->barco2[k];
-                    }
-                }
-            }
     }
 }
-
 
 void BOOM(matriz *a, navio *b, int x, int y)
 {
     printf("Jogador 1, insira a posição (x) do ataque: \n");
     scanf("%d", &x);
-    x -= 1;
-    while (x <= 0 || x > 9)
-    {
-        if (x == 0)
-            break;
-        printf("X invalido, jogue novamente, player 1.\n");
-        printf("digite novo X: ");
-        scanf("%d", &x);
-    }
-    printf("Jogador 2, insira a posição (y) do ataque: \n");
+    printf("digite posicao y");
     scanf("%d", &y);
+    x -= 1;
     y -= 1;
-    while (y <= 0 || y > 9)
+    if ((x < 0 || x > 10) || (y < 0 || y > 10) || (a->tabuleiro2[y][x] == 'O') || (a->tabuleiro2[y][x] == 'X'))
     {
-        if (y == 0)
-            break;
-        printf("Y invalido, jogue novamente, player 1.\n");
-        printf("digite novo Y: ");
-        scanf("%d", &y);
-    }
-    int pocC = 0;
-    if (x >= 0 && x < tam && y >= 0 && y < tam)
-    {
-        pocC = 1;
-    }
-    while (!pocC)
-    {
-        if (x < 0 && x > 9 && y < 0 && y > 9)
+        while ((x < 0 || x > 10) || (y < 0 || y > 10) || (a->tabuleiro2[y][x] == 'O') || (a->tabuleiro2[y][x] == 'X'))
         {
-            printf("Ataque inválido player 1, jogue novamente.\n");
+            if (a->tabuleiro2[y][x] == 'O' || a->tabuleiro2[y][x] == 'X')
+                printf("Posição ja atacada, jogue novamente, player 1.\n");
+            if (x < 0 || x > 9)
+                printf("X invalido, jogue novamente, player 1.\n");
+            if (y < 0 || y > 9)
+                printf("Y invalido, jogue novamente, player 1.\n");
+
             printf("digite novo X: ");
             scanf("%d", &x);
             printf("digite novo Y: ");
             scanf("%d", &y);
         }
+        x -= 1;
+        y -= 1;
     }
-
     if (x >= 0 && x < tam && y >= 0 && y < tam)
     {
         if (a->tabuleiro2[y][x] == 'N')
@@ -487,37 +307,29 @@ void BOOM2(matriz *a, navio *b, int x, int y)
 
     printf("Jogador 2, insira a posição (x) do ataque: \n");
     scanf("%d", &x);
-    x -= 1;
-    while (x < 0 || x > 9)
-    {
-        printf("X invalido, jogue novamente, player 2.\n");
-        printf("digite novo X: ");
-        scanf("%d", &x);
-    }
-    printf("Jogador 2, insira a posição (y) do ataque: \n");
+    printf("digite posicao y");
     scanf("%d", &y);
-    while (y < 0 || y > 9)
-    {
-        printf("Y invalido, jogue novamente, player 1.\n");
-        printf("digite novo Y: ");
-        scanf("%d", &y);
-    }
+
+    x -= 1;
     y -= 1;
-    int poC = 0;
-    if (x >= 0 && x < tam && y >= 0 && y < tam)
+    if ((x < 0 || x > 10) || (y < 0 || y > 10) || (a->tabuleiro[y][x] == 'O') || (a->tabuleiro[y][x] == 'X'))
     {
-        poC = 1;
-    }
-    while (!poC)
-    {
-        if (x < 0 && x > 9 && y < 0 && y > 9)
+        while ((x < 0 || x > 10) || (y < 0 || y > 10) || (a->tabuleiro[y][x] == 'O') || (a->tabuleiro[y][x] == 'X'))
         {
-            printf("Ataque inválido player 2, jogue novamente.\n");
+            if (a->tabuleiro[y][x] == 'O' || a->tabuleiro[y][x] == 'X')
+                printf("Posição ja atacada, jogue novamente, player 1.\n");
+            if (x < 0 || x > 9)
+                printf("X invalido, jogue novamente, player 1.\n");
+            if (y < 0 || y > 9)
+                printf("Y invalido, jogue novamente, player 1.\n");
+
             printf("digite novo X: ");
             scanf("%d", &x);
             printf("digite novo Y: ");
             scanf("%d", &y);
         }
+        x -= 1;
+        y -= 1;
     }
 
     if (x >= 0 && x < tam && y >= 0 && y < tam)
