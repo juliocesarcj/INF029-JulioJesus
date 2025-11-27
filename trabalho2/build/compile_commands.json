@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/kuro/Documentos/Trabalhos/MEU_T2/build",
+  "command": "/usr/bin/cc   -g -std=gnu11 -o CMakeFiles/program.dir/mainTeste.c.o -c /home/kuro/Documentos/Trabalhos/MEU_T2/mainTeste.c",
+  "file": "/home/kuro/Documentos/Trabalhos/MEU_T2/mainTeste.c",
+  "output": "CMakeFiles/program.dir/mainTeste.c.o"
+},
+{
+  "directory": "/home/kuro/Documentos/Trabalhos/MEU_T2/build",
+  "command": "/usr/bin/cc   -g -std=gnu11 -o CMakeFiles/program.dir/t2.c.o -c /home/kuro/Documentos/Trabalhos/MEU_T2/t2.c",
+  "file": "/home/kuro/Documentos/Trabalhos/MEU_T2/t2.c",
+  "output": "CMakeFiles/program.dir/t2.c.o"
+}
+]
