@@ -1,5 +1,5 @@
-#ifndef TRABALHO2_ESTRUTURAVETORES_H
-#define TRABALHO2_ESTRUTURAVETORES_H
+#ifndef trabalho2_H
+#define trabalho2
 
 // enumeracoes (enum) ajudam a deixar o codigo mais legivel, possibilitando que voce de significado
 // as suas constantes, para mais informacoes https://en.cppreference.com/w/c/language/enum
@@ -13,11 +13,11 @@ typedef struct reg {
     int conteudo;
     struct reg *prox;
 } No;
-typedef struct no{
+typedef struct item{
     int qtd;
-    int tamannho;
+    int tamanho;
     int * ptx;
-}no;
+}item;
 
 int criarEstruturaAuxiliar(int posicao, int tamanho);
 int inserirNumeroEmEstrutura(int posicao, int valor);

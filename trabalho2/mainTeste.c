@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "t2.h"
+#include "trabalho2.h"
 
 void show_log(char *str);
 
@@ -23,10 +23,10 @@ int main()
     testeInserirComEstrutura();
     testeExcluir();
     testeExcluirNumeroEspecifico();
-    /*testeListar();
+    testeListar();
     testeRetornarTodosNumeros();
     testeMudarTamanhoEstrutura();
-    testeListaEncadeada();*/
+    //testeListaEncadeada();
     finalizar();
 }
 int ligado = 0;

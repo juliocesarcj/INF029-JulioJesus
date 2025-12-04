@@ -256,7 +256,7 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
         {
             if (vetorPrincipal[posicao].qtd != 0)
             {
-                for (int i = 0; i < vetorPrincipal[posicao].qtd; i++)
+                for (int i = 0; i < vetorPrincipal[posicao].tamanho; i++)
                 {
                     if (vetorPrincipal[posicao].ptx[i] != -999)
                     {
@@ -302,7 +302,7 @@ int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
                     vetorAux[i] = vetorPrincipal[posicao].ptx[i];
             }
 
-            for (int j = 0; j < vetorPrincipal[posicao].qtd - 1; j++)
+            for (int j = 0; j < vetorPrincipal[posicao].tamanho; j++)
             {
                 if (vetorAux[j] > vetorAux[j + 1])
                 {
@@ -437,20 +437,25 @@ Rertono (int)
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
 {
 
+    int tamanho = vetorPrincipal[posicao].tamanho;
+    novoTamanho+=tamanho;
     int retorno = 0;
-    if (posicao > 0 && posicao < 10)
+    posicao-=1;
+    if (posicao >= 0 && posicao < 10)
     {
-        if (novoTamanho >= 0)
+        if (novoTamanho >= 1)
         {
-            if (novoTamanho < 10)
+            if (novoTamanho <= 10)
             {
                 if (vetorPrincipal[posicao].ptx != NULL)
                 {
+                    
                     int *new = realloc(vetorPrincipal[posicao].ptx, novoTamanho * sizeof(int));
                     if (new != NULL)
                     {
                         vetorPrincipal[posicao].ptx = new;
-                        vetorPrincipal[posicao].tamanho += novoTamanho;
+                        vetorPrincipal[posicao].tamanho = novoTamanho;
+                        printf("TAMANHO NOVO: %d\n", vetorPrincipal[posicao].tamanho);
                         retorno = SUCESSO;
                     }
                     else
@@ -470,7 +475,7 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
         }
         else
         {
-            NOVO_TAMANHO_INVALIDO;
+            retorno = NOVO_TAMANHO_INVALIDO;
         }
     }
     else
