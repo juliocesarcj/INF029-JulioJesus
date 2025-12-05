@@ -41,22 +41,22 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
         {
             if (posicao >= 0 && posicao < 10)
             {
-                    if (vetorPrincipal[posicao].ptx == NULL)
+                if (vetorPrincipal[posicao].ptx == NULL)
+                {
+                    int *new = malloc(tamanho * sizeof(int));
+                    vetorPrincipal[posicao].ptx = new;
+                    for (int i = 0; i < tamanho; i++)
                     {
-                        int *new = malloc(tamanho * sizeof(int));
-                        vetorPrincipal[posicao].ptx = new;
-                        for (int i = 0; i < tamanho; i++)
-                        {
-                            vetorPrincipal[posicao].ptx[i] = -999;
-                        }
-                        vetorPrincipal[posicao].tamanho = tamanho;
-                        vetorPrincipal[posicao].qtd = 0;
-                        retorno = SUCESSO;
+                        vetorPrincipal[posicao].ptx[i] = -999;
                     }
-                    else
-                    {
-                        return JA_TEM_ESTRUTURA_AUXILIAR;
-                    }
+                    vetorPrincipal[posicao].tamanho = tamanho;
+                    vetorPrincipal[posicao].qtd = 0;
+                    retorno = SUCESSO;
+                }
+                else
+                {
+                    return JA_TEM_ESTRUTURA_AUXILIAR;
+                }
             }
             else
             {
@@ -249,23 +249,27 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
 
     posicao -= 1;
     int cont = 0;
-    int retorno = 0;
+    int retorno = 0, k = 0;
     if (posicao >= 0 && posicao < 10)
     {
         if (vetorPrincipal[posicao].ptx != NULL)
         {
             if (vetorPrincipal[posicao].qtd != 0)
             {
-                for (int i = 0; i < vetorPrincipal[posicao].tamanho; i++)
+                for (int i = 0; i < vetorPrincipal[posicao].qtd; i++)
                 {
                     if (vetorPrincipal[posicao].ptx[i] != -999)
                     {
-                        vetorAux[i] = vetorPrincipal[posicao].ptx[i];
+                        vetorAux[k] = vetorPrincipal[posicao].ptx[i];
+                        k++;
                     }
                 }
-                return SUCESSO;
+                retorno = SUCESSO;
             }
-            return ESTRUTURA_AUXILIAR_VAZIA;
+            else
+            {
+                retorno = ESTRUTURA_AUXILIAR_VAZIA;
+            }
         }
         else
         {
@@ -292,27 +296,29 @@ int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
     int retorno = 0;
     posicao -= 1;
+    for (int i = 0; i < vetorPrincipal[posicao].tamanho; i++)
+    {
+        if (vetorPrincipal[posicao].ptx[i] != -999)
+            vetorAux[i] = vetorPrincipal[posicao].ptx[i];
+    }
     if (posicao >= 0 && posicao < 10)
     {
         if (vetorPrincipal[posicao].ptx != NULL)
         {
-            for (int i = 0; i < vetorPrincipal[posicao].qtd; i++)
+            for (int i = 0; i < vetorPrincipal[posicao].qtd; i = i + 1)
             {
-                if (vetorPrincipal[posicao].ptx[i] != -999)
-                    vetorAux[i] = vetorPrincipal[posicao].ptx[i];
-            }
-
-            for (int j = 0; j < vetorPrincipal[posicao].tamanho; j++)
-            {
-                if (vetorAux[j] > vetorAux[j + 1])
+                for (int j = i + 1; j > vetorPrincipal[posicao].qtd; j = j - 1)
                 {
-                    int temporario = vetorAux[j];
-                    vetorAux[j] = vetorAux[j + 1];
-                    vetorAux[j + 1] = temporario;
+                    if (vetorAux[j] > vetorAux[j + 1])
+                    {
+                        int temporario = vetorAux[j];
+                        vetorAux[j] = vetorAux[j + 1];
+                        vetorAux[j + 1] = temporario;
+                    }
                 }
             }
 
-            return SUCESSO;
+            retorno = SUCESSO;
         }
         else
         {
@@ -354,9 +360,10 @@ int getDadosDeTodasEstruturasAuxiliares(int vetorAux[])
     {
         for (int j = 0; j < vetorPrincipal[i].tamanho; j++)
         {
-            if(vetorPrincipal[i].ptx[j] != -999){
-            vetorAux[k] = vetorPrincipal[i].ptx[j];
-            k++;
+            if (vetorPrincipal[i].ptx[j] != -999)
+            {
+                vetorAux[k] = vetorPrincipal[i].ptx[j];
+                k++;
             }
             retorno = SUCESSO;
         }
@@ -386,11 +393,14 @@ int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
             }
         }
     }
+    int cont2 = 0;
     for (int i = 0; i < TAM; i++)
     {
-        if (vetorPrincipal[i].qtd == 0)
+        if (vetorPrincipal[i].qtd == -999)
         {
-            retorno = TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+            cont2++;
+            if (cont2 == cont)
+                retorno = TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
         }
     }
     int k = 0;
@@ -406,20 +416,18 @@ int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
             retorno = SUCESSO;
         }
     }
-
-    for (int i = 0; i < k; i = i + 1)
+    for (int i = 0; i < k - 1; i++)
     {
-        for (int j = k - 1; j > i; j = j - 1)
+        for (int j = 0; j < k - i - 1; j++)
         {
-            if (vetorAux[j] < vetorAux[j - 1])
+            if (vetorAux[j] > vetorAux[j + 1])
             {
-                int temp = vetorAux[j];
-                vetorAux[j] = vetorAux[j - 1];
-                vetorAux[j - 1] = temp;
+                int temporario = vetorAux[j];
+                vetorAux[j] = vetorAux[j + 1];
+                vetorAux[j + 1] = temporario;
             }
         }
     }
-
     return retorno;
 }
 
@@ -437,10 +445,11 @@ Rertono (int)
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
 {
 
+    posicao -= 1;
+    int cont = 0;
     int tamanho = vetorPrincipal[posicao].tamanho;
-    novoTamanho+=tamanho;
+    novoTamanho += tamanho;
     int retorno = 0;
-    posicao-=1;
     if (posicao >= 0 && posicao < 10)
     {
         if (novoTamanho >= 1)
@@ -449,13 +458,22 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
             {
                 if (vetorPrincipal[posicao].ptx != NULL)
                 {
-                    
+
                     int *new = realloc(vetorPrincipal[posicao].ptx, novoTamanho * sizeof(int));
                     if (new != NULL)
                     {
                         vetorPrincipal[posicao].ptx = new;
                         vetorPrincipal[posicao].tamanho = novoTamanho;
-                        printf("TAMANHO NOVO: %d\n", vetorPrincipal[posicao].tamanho);
+                        for (int u = 0; u < vetorPrincipal[posicao].tamanho; u++)
+                        {
+                            cont = 0;
+                            if (vetorPrincipal[posicao].ptx[u] != -999)
+                            {
+                                cont++;
+                            }
+                        }
+                        vetorPrincipal[posicao].qtd = cont;
+
                         retorno = SUCESSO;
                     }
                     else
@@ -482,6 +500,7 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
     {
         retorno = POSICAO_INVALIDA;
     }
+
     return retorno;
 }
 /*
@@ -495,9 +514,30 @@ Retorno (int)
 */
 int getQuantidadeElementosEstruturaAuxiliar(int posicao)
 {
-
     int retorno = 0;
-
+    posicao -= 1;
+    if (posicao >= 0 && posicao < 10)
+    {
+        if (vetorPrincipal[posicao].ptx != NULL)
+        {
+            if (vetorPrincipal[posicao].qtd > 0)
+            {
+                retorno = vetorPrincipal[posicao].qtd;
+            }
+            else
+            {
+                retorno = ESTRUTURA_AUXILIAR_VAZIA;
+            }
+        }
+        else
+        {
+            retorno = SEM_ESTRUTURA_AUXILIAR;
+        }
+    }
+    else
+    {
+        retorno = POSICAO_INVALIDA;
+    }
     return retorno;
 }
 
@@ -510,8 +550,19 @@ Retorno (No*)
 */
 No *montarListaEncadeadaComCabecote()
 {
+    lista = malloc(sizeof(No));
+    if (lista == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        lista->prox = NULL;
+        lista->conteudo = -999;
 
-    return NULL;
+  
+        return lista;
+    }
 }
 
 /*
@@ -548,6 +599,10 @@ void inicializar()
     {
 
         vetorPrincipal[i].ptx = NULL;
+        for (int j = 0; j < vetorPrincipal[i].tamanho; j++)
+        {
+            vetorPrincipal[i].ptx[j] = -999;
+        }
         vetorPrincipal[i].qtd = 0;
         vetorPrincipal[i].tamanho = 0;
     }
