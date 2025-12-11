@@ -13,6 +13,10 @@ typedef struct reg {
     int conteudo;
     struct reg *prox;
 } No;
+
+typedef struct cabeca{
+    No * head;
+}cabeca;
 typedef struct item{
     int qtd;
     int tamanho;

@@ -163,10 +163,10 @@ void testeRetornarTodosNumeros()
     printf("%d\n", inserirNumeroEmEstrutura(5, 6) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(5, 27) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(5, -6) == SUCESSO);
-    /*
-2 [3,8,0]
-5 [1,34,12,6,27,-6, , , , ]
-*/
+//     /*
+// 2 [3,8,0]
+// 5 [1,34,12,6,27,-6, , , , ]
+// */
     int vet[9];
 
     printf("%d\n", getDadosDeTodasEstruturasAuxiliares(vet) == SUCESSO);
